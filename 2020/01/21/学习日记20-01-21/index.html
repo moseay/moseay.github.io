@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  <title>学习日记20-01-21 - 时间胶囊</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="我与你的轻时光">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+
+  <link rel="shortcut icon" href="/images/favicon.ico" type="image/vnd.microsoft.icon" />
+  <meta name="description" content="学习日记20.01.21这两天我对filter与listener有了一些了解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习日记20-01-21">
+<meta property="og:url" content="https://moseay.gitee.io/2020/01/21/%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B020-01-21/index.html">
+<meta property="og:site_name" content="时间胶囊">
+<meta property="og:description" content="学习日记20.01.21这两天我对filter与listener有了一些了解">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2020-01-21T09:18:50.000Z">
+<meta property="article:modified_time" content="2020-01-21T09:18:50.172Z">
+<meta property="article:author" content="ILSH·M">
+<meta property="article:tag" content="filter">
+<meta property="article:tag" content="listener">
+<meta name="twitter:card" content="summary">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
+   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
+  <link rel="stylesheet" href="/css/style.css?v=1581240793613">
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://i.loli.net/2020/01/06/kewAqLjBR21ZzTU.png)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">menu</i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="ILSH·M" class="mdui-btn mdui-btn-icon"><img src="/images/avatar.jpg"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="ILSH·M">
+            <img src="/images/avatar.jpg" alt="ILSH·M">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>Articles</span>11</div>
+        <div><span>Tags</span>20</div>
+        <div><span>Categories</span>4</div>
+    </div>
+    <ul class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/PY.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </ul>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">Social</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://github.com/moseay" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a><a class="mdui-ripple" href="https://t.me/White_Two" target="_blank" mdui-tooltip="{content: 'Telegram'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-telegram"></i>
+        </a><a class="mdui-ripple" href="https://twitter.com/_mos_ae?s=09" target="_blank" mdui-tooltip="{content: 'Twitter'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-twitter"></i>
+        </a><a class="mdui-ripple" href="tencent://message/?uin=824665292&Site=&Menu=yes" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">Categories</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/javaweb/">javaweb</a>
+          <span class="category-list-count">4</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/博客日杂/">博客日杂</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/心事/">心事</a>
+          <span class="category-list-count">4</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/随笔/">随笔</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">Tagcloud</h3>
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud">
+      <a href="/tags/MVC/" style="font-size: 10px;">MVC</a> <a href="/tags/c3p0/" style="font-size: 10px;">c3p0</a> <a href="/tags/dbutils/" style="font-size: 10px;">dbutils</a> <a href="/tags/filter/" style="font-size: 10px;">filter</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/listener/" style="font-size: 10px;">listener</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/%E4%B9%90%E8%A7%82/" style="font-size: 10px;">乐观</a> <a href="/tags/%E4%BD%A0%E7%9A%84%E5%90%8D%E5%AD%97/" style="font-size: 10px;">你的名字</a> <a href="/tags/%E5%88%86%E9%A1%B5/" style="font-size: 10px;">分页</a> <a href="/tags/%E5%AD%A4%E7%8B%AC/" style="font-size: 10px;">孤独</a> <a href="/tags/%E5%BF%83%E4%BA%8B/" style="font-size: 20px;">心事</a> <a href="/tags/%E6%9B%BE%E7%BB%8F/" style="font-size: 10px;">曾经</a> <a href="/tags/%E6%9C%AA%E6%9D%A5/" style="font-size: 10px;">未来</a> <a href="/tags/%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2/" style="font-size: 10px;">条件查询</a> <a href="/tags/%E6%A2%A6%E5%A2%83/" style="font-size: 10px;">梦境</a> <a href="/tags/%E7%8E%B0%E5%9C%A8/" style="font-size: 10px;">现在</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 10px;">生活</a> <a href="/tags/%E8%87%AA%E6%88%91/" style="font-size: 10px;">自我</a>
+    </div>
+    
+  </div>
+
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">Archive</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2020 ILSH·M
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+    <div class="nexmoe-post-cover"> 
+        
+        <img src="https://cdn.pixabay.com/photo/2020/01/15/07/41/hamburg-4767149_1280.jpg">
+        
+        <h1>学习日记20-01-21</h1>
+    </div>
+  <div class="nexmoe-post-meta">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2020年01月21日</a>
+    <a><i class="nexmoefont icon-areachart"></i>2.4k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 11 分钟</a>
+    
+      <a class="nexmoefont icon-appstore-fill -link" href="/categories/javaweb/">javaweb</a>
+    
+    
+      <a class="nexmoefont icon-tag-fill -link" href="/tags/filter/" rel="tag">filter</a> <a class="nexmoefont icon-tag-fill -link" href="/tags/listener/" rel="tag">listener</a>
+    
+  </div>
+  <article>
+    <h1 id="学习日记20-01-21"><a href="#学习日记20-01-21" class="headerlink" title="学习日记20.01.21"></a>学习日记20.01.21</h1><p>这两天我对filter与listener有了一些了解<a id="more"></a>，通俗的讲：</p>
+<ul>
+<li><p>Listener就是监听器，它可以对一些对象进行监听，监听对象的启动与销毁，存入与取出。同时还能监听对象是否与session绑定与解绑，以及对象是否被钝化活化。它可以用于在servlet启动时，插入一些需要的代码，以达成需要的结果。</p>
+</li>
+<li><p>Filter就是过滤器，他可以针对用户的相应的配置，过滤请求。它在请求的资源符合设定是拦截请求，拦截后可以插入任意代码，可以修改请求内容，最后决定是否放行请求。</p>
+</li>
+</ul>
+<h2 id="Listener"><a href="#Listener" class="headerlink" title="Listener"></a>Listener</h2><p>  今天学习的实例，是通过Listener监听服务器启动，在服务器启动时打开定时任务。</p>
+<ol>
+<li><p>首先创建自定义监听器，实现<code>ServletContextListener</code>接口</p>
+</li>
+<li><p>在web.xml中配置监听器。</p>
+<pre><code class="xml">&lt;listener&gt;
+&lt;listener-class&gt;com.xxxx.listener.BirthdayListener&lt;/listener-class&gt;
+&lt;/listener&gt;</code></pre>
+</li>
+<li><p>实现生日定时发送功能</p>
+</li>
+</ol>
+<p>首先，我们要分析生日提醒的业务。</p>
+<p>当服务器启动时，设置一个定时任务，指定为今天的某个时间点，时间间隔为一天。这样的话，只要服务器启动，就会每天定时执行一次。</p>
+<p>在定时任务中，我们需要首先找出当天生日的所有人。用户的生日在数据库中一般会使用date格式进行保存，例如：2019-07-10。</p>
+<p>我们通过MM-dd的格式，通过sql模糊查询，能查到今天生日的所有用户。</p>
+<p>然后循环进行邮件发送就好。</p>
+<p>代码实现如下：</p>
+<pre><code class="java">package com.xxxx.listener;
+
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.mail.MessagingException;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
+
+import com.ilshmos.domain.User;
+import com.ilshmos.utils.DBUtils;
+import com.ilshmos.utils.MailUtils;
+
+public class BirthdayListener implements ServletContextListener {
+
+    @Override
+    public void contextDestroyed(ServletContextEvent arg0) {
+        //什么也不做
+    }
+
+    @Override
+    public void contextInitialized(ServletContextEvent arg0) {
+        //监听器监听到服务器启动，则开始进行生日推送的任务
+        SimpleDateFormat fullFmt = new SimpleDateFormat(&quot;yy-MM-dd hh:mm:ss&quot;);
+        SimpleDateFormat yMdFmt = new SimpleDateFormat(&quot;yy-MM-dd&quot;);
+        SimpleDateFormat MdFmt = new SimpleDateFormat(&quot;MM-dd&quot;);
+        Date today = new Date();
+        Date firstTime = null;
+        try {
+            firstTime = fullFmt.parse(yMdFmt.format(today) + &quot; 08:00:00&quot;);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                //这里定时发邮件
+                //1、找出当天生日的所有人
+                QueryRunner qr = new QueryRunner(DBUtils.getDataSource());
+                String sql = &quot;select * from user where ubirthday like ?&quot;;
+                List&lt;User&gt; ulist = null;
+                try {
+                    ulist = qr.query(sql, new BeanListHandler&lt;User&gt;(User.class), &quot;%&quot; + MdFmt.format(today));
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                //2、循环创建信息并发送邮件
+                for (User user : ulist) {
+                    String emailMsg = &quot;亲爱的：&quot; + user.getUsername() + &quot;,今天是您的生日，祝您生日快乐！&quot;;
+                    try {
+                        MailUtils.sendMail(user.getUemail(), &quot;生日快乐&quot;, emailMsg);
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, firstTime, 1000*60*60*24);
+    }
+
+}
+</code></pre>
+<p>以上代码有一句错误，这也是我写博客刚发现，因为我最初版的代码非常混乱。随处都是日期的调用，后来我将所有需要用到的SimpleDateFormat都给整理了一下，在整理的过程中欠缺考虑，造成了那个错误。</p>
+<p>错误就是，在定时任务执行到查询当天生日的所有人时，它使用的是<code>qr.query(sql, new BeanListHandler&lt;User&gt;(User.class), &quot;%&quot; + MdFmt.format(today));</code>。本来这里的语句是new Date()，我当时在优化时，想到有些数据会被重复调用，干脆就写一个方法内的局部变量供方法内任意地方都可调用。但是，我欠缺考虑的是，第一个需要使用new Date()的地方，是在服务器启动时，设置定时任务，设置定时任务的初次执行时间。这里在方法开始声明无可厚非，然而在定时任务内部，需要在每天都获取到当天的生日，再用之前声明好的变量就不行了。</p>
+<p>因为之前声明的变量指的是服务器初次启动的那天，而在定时任务内部使用，它就会每天都向“服务器启动时间“那天生日的人发邮件。</p>
+<p>这里应该改为new Date()，代表每执行一次定时任务，就获取执行定时任务的当天日期。</p>
+<h2 id="Filter"><a href="#Filter" class="headerlink" title="Filter"></a>Filter</h2><p>过滤器有时候可以用于将共用代码抽离。比如，自动登录功能，字符编码功能。</p>
+<h3 id="自动登录"><a href="#自动登录" class="headerlink" title="自动登录"></a>自动登录</h3><p>我在很早之前，也做过自动登录相关的东西，原理就是在每个页面都写上同样的功能，如果cookie里存有用户凭据。被访问的页面就执行登录功能，并将信息存入session。</p>
+<p>但是..这种需要在每个页面中都写入相应的功能，当初我还没将页面的header等分层，所以更麻烦。</p>
+<p>即使分层了，也不能保证在访问任意资源时都能自动登录。</p>
+<p>因此，如果通过监听器。拦截访问WEB应用下任意资源的请求，在此刻读取cookie进行登录，就简单的多了，代码也只需要写一遍。</p>
+<p>需求分析：</p>
+<ol>
+<li><p>用户在登录页面登录，如果用户勾选上“自动登录”复选框，则在登录时，将用户名与密码存入cookie中。(实际开发应该是token之类的)</p>
+</li>
+<li><p>创建过滤器，过滤器内首先判断session中是否有用户数据。如果有代表用户的登录状态存在，就不执行代码直接放行；如果没有，则代表用户未登录，就从cookie中获取用户名和密码，如果获取到不为Null，就执行登录。如果没有获取到，则直接放行…</p>
+</li>
+<li><p>配置web.xml</p>
+</li>
+</ol>
+<p>代码实现：</p>
+<pre><code class="xml">&lt;!-- web.xml配置 --&gt;
+&lt;filter&gt;
+    &lt;display-name&gt;AutoLoginFilter&lt;/display-name&gt;
+    &lt;filter-name&gt;AutoLoginFilter&lt;/filter-name&gt;
+    &lt;filter-class&gt;com.xxxx.web.filter.AutoLoginFilter&lt;/filter-class&gt;
+  &lt;/filter&gt;
+  &lt;filter-mapping&gt;
+    &lt;filter-name&gt;AutoLoginFilter&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+  &lt;/filter-mapping&gt;</code></pre>
+<pre><code class="java">//过滤器中doFilter方法
+public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest req = (HttpServletRequest) request;
+        Cookie[] cookies = req.getCookies();
+        HttpSession session = req.getSession();
+        if(session.getAttribute(&quot;user&quot;) != null) {
+            chain.doFilter(req, response);
+            return;
+        }
+        String username = null;
+        String password = null;
+        if(cookies != null) {
+            for (Cookie cookie : cookies) {
+                if(&quot;username&quot;.equals(cookie.getName())) {
+                    //防止中文用户名，存入cookie会报错。
+                    //对其进行编码解码可避免中文字符存入cookie报错
+                    username = URLDecoder.decode(cookie.getValue(),&quot;UTF-8&quot;);
+                }
+                if(&quot;password&quot;.equals(cookie.getName())) {
+                    password = cookie.getValue();
+                }
+            }
+        }
+        if(username != null &amp;&amp; password != null) {
+            UserService service = new UserService();
+            User user = null;
+            try {
+                user = service.login(username,password);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            session.setAttribute(&quot;user&quot;, user);
+            chain.doFilter(req, response);
+            return;
+        }
+        chain.doFilter(req, response);
+    }</code></pre>
+<h3 id="字符编码"><a href="#字符编码" class="headerlink" title="字符编码"></a>字符编码</h3><p>通常的，我们在servlet与前端进行数据传输时，如果遇到中文，就需要针对着进行编码处理。</p>
+<p>response在写中文时，可以提前写一句<code>response.setContentType(&quot;text/html;CharSet=UTF-8&quot;);</code></p>
+<p>这样就可以解决response在传输过程中的中文问题。</p>
+<p>而request则不一样，它在不同的提交方式下，需要进行不同方法的处理。在post提交方式下，我们只需要写<code>request.setCharacterEncoding(&quot;UTF-8&quot;);</code>即可。但是如果在get提交方式下，因为请求内容在请求行，所以前面那句代码就不起作用了，我们只能以最原始的方法，对获取到的参数进行重新编码。</p>
+<p>而对参数进行重新编码这种方法，同时也适用于post方式提交。</p>
+<p>基于此，我们可以对<code>request.getParameter()</code>这个方法进行增强。</p>
+<p>增强某个方法的时候，我们可以使用装饰者模式。原(request)对象与我们增强的类继承同一个类，然后对我们的类中的相应的方法进行重写，达到增强的目的。</p>
+<p>比较好的是，tomcat已经为我们提供了<code>HttpServletRequestWrapper</code>这个类，供我们对request中的方法进行增强。</p>
+<p>代码实现：</p>
+<pre><code class="java">package com.xxxx.web.filter;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
+
+public class EnhanceRequestFilter implements Filter {
+
+    public void destroy() {
+    }
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest req = (HttpServletRequest) request;
+        /*
+         * 此处的纰漏是未重写全部的获取参数方法，比如getParameterValues等
+         */
+
+        EnhanceRequest enhanceReq = new EnhanceRequest(req);
+        chain.doFilter(enhanceReq, response);
+    }
+    public void init(FilterConfig fConfig) throws ServletException {
+    }
+
+}
+class EnhanceRequest extends HttpServletRequestWrapper{
+    public EnhanceRequest(HttpServletRequest request) {
+        super(request);
+    }
+    @Override
+    public String getParameter(String name) {
+        String value = super.getParameter(name);
+        if(value != null) {
+            //不勾选自动登录时，获取的参数为空，直接进行对象调用会报空指针异常
+            try {
+                value = new String(value.getBytes(&quot;ISO8859-1&quot;),&quot;UTF-8&quot;);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+        return value;
+    }
+
+}</code></pre>
+<pre><code class="xml">&lt;filter&gt;
+    &lt;display-name&gt;EnhanceRequestFilter&lt;/display-name&gt;
+    &lt;filter-name&gt;EnhanceRequestFilter&lt;/filter-name&gt;
+    &lt;filter-class&gt;com.xxxx.web.filter.EnhanceRequestFilter&lt;/filter-class&gt;
+&lt;/filter&gt;
+&lt;filter-mapping&gt;
+    &lt;filter-name&gt;EnhanceRequestFilter&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+&lt;/filter-mapping&gt;</code></pre>
+<p>在配置xml时，需要注意的是，filter执行的顺序。它执行的顺序按照在xml中“filter-mapping”的顺序进行执行。所以我们应该将这个增强功能的过滤器放在上面，这样才能使所有(包括下一个过滤器中的)请求中的request都进行了增强。</p>
+<h2 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h2><p>我们在此其实不需要了解的过于深，过于透彻。</p>
+<p>因为这种过滤器和监听器一般用于编写框架才会使用，例如Spring与Struct2等，都相应的用到了过滤器与监听器。</p>
+
+  </article>
+  
+    
+<div class="nexmoe-post-copyright">
+<i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+<strong>Author：</strong>ILSH·M<br>
+<strong>Link：</strong><a href="https://moseay.gitee.io/2020/01/21/%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B020-01-21/" title="https:&#x2F;&#x2F;moseay.gitee.io&#x2F;2020&#x2F;01&#x2F;21&#x2F;%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B020-01-21&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;moseay.gitee.io&#x2F;2020&#x2F;01&#x2F;21&#x2F;%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B020-01-21&#x2F;</a><br>
+
+  <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+
+</div>
+
+
+  
+  <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        id: decodeURI(window.location.pathname),
+        repo: '',
+        owner: '',
+        admin: ''
+    })
+    gitalk.render('gitalk')
+</script>
+
+</section>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/js/mdui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+ 
+    <script src="https://cdn.jsdelivr.net/npm/smoothscroll-for-websites@1.4.9/SmoothScroll.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script src="/js/app.js?v=1581240793622"></script>
+<script src="https://cdn.jsdelivr.net/npm/lazysizes@5.1.0/lazysizes.min.js"></script>
+
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+
+
+
+  
+
+
+
+
+
+</body>
+
+</html>
