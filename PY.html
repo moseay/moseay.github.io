@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="zh">
 
 <head>
   
   <title>友链 - 时间胶囊</title>
   <meta charset="UTF-8">
   <meta name="description" content="我与你的轻时光">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
   
   
 
@@ -30,14 +31,19 @@
 <meta property="article:author" content="ILSH·M">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.pixabay.com/photo/2019/12/23/19/56/scotland-4715309_1280.jpg">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/css/style.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css" crossorigin>
+  
+  <!--<link rel="stylesheet" href="/css/style.css?v=1581259801378">-->
+
    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <style>
+      .nexmoe-avatar img:hover {
+        -webkit-transform: rotateZ(360deg);
+        -moz-transform: rotateZ(360deg);
+        transform: rotateZ(360deg);
+      }	
+    </style>
   
-  
-  <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
-  <link rel="stylesheet" href="/css/style.css?v=1581246717811">
 <meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/assets/css/APlayer.min.css" class="aplayer-style-marker">
 <script src="/assets/js/APlayer.min.js" class="aplayer-script-marker"></script>
 <script src="/assets/js/Meting.min.js" class="meting-script-marker"></script>
@@ -49,10 +55,10 @@
     <div class="nexmoe-bg" style="background-image: url(https://i.loli.net/2020/01/06/kewAqLjBR21ZzTU.png)"></div>
     <div class="mdui-appbar mdui-shadow-0">
       <div class="mdui-toolbar">
-        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">menu</i></a>
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu">menu</i></a>
         <div class="mdui-toolbar-spacer"></div>
         <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
-        <a href="/" title="ILSH·M" class="mdui-btn mdui-btn-icon"><img src="/images/avatar.jpg"></a>
+        <a href="/" title="ILSH·M" class="mdui-btn mdui-btn-icon"><img src="/images/avatar.jpg" alt="ILSH·M"></a>
        </div>
     </div>
   </div>
@@ -60,7 +66,7 @@
       <div class="nexmoe-drawer mdui-drawer" id="drawer">
     <div class="nexmoe-avatar mdui-ripple">
         <a href="/" title="ILSH·M">
-            <img src="/images/avatar.jpg" alt="ILSH·M">
+            <img src="/images/avatar.jpg" alt="ILSH·M" alt="ILSH·M">
         </a>
     </div>
     <div class="nexmoe-count">
@@ -68,7 +74,7 @@
         <div><span>Tags</span>20</div>
         <div><span>Categories</span>4</div>
     </div>
-    <ul class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
         
         <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
             <i class="mdui-list-item-icon nexmoefont icon-home"></i>
@@ -91,7 +97,7 @@
             </div>
         </a>
         
-    </ul>
+    </div>
     <aside id="nexmoe-sidebar">
   
   <div class="nexmoe-widget-wrap">
@@ -188,6 +194,9 @@
   <div id="nexmoe-content">
     <div class="nexmoe-primary">
         <style>
+  article > *:first-child {
+    margin-top: 0!important;
+  }
   article ul {
     list-style-type: none;
     padding: 0;
@@ -226,7 +235,15 @@
     width: 100%;
     border-radius: 0;
     border: none;
-    height: calc(100% - 30px);
+    display: block;
+  }
+  article ul li img.lazyload {
+    padding-bottom: 100%;
+    opacity: 0;
+  }
+  article ul li img.lazyloaded {
+    padding-bottom: 0;
+    opacity: 1;
   }
   @media screen and (max-width: 768px) {
     article ul li {
@@ -238,24 +255,24 @@
 <div class="nexmoe-post">
   <article class="nexmoe-py">
     
-    <div id="aplayer-DopuzqIZ" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="413812448" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
+    <div id="aplayer-jsNzvnrU" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="413812448" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"></div>
 
 <table>
 <thead>
 <tr>
-<th><img src="https://cdn.pixabay.com/photo/2019/12/23/19/56/scotland-4715309_1280.jpg" alt="p1"></th>
-<th><img src="https://cdn.pixabay.com/photo/2014/09/02/15/28/styggkarret-433688_1280.jpg" alt="p2"></th>
-<th><img src="https://cdn.pixabay.com/photo/2019/12/14/09/22/landscape-4694558_1280.jpg" alt="p3"></th>
+<th><img data-sizes="auto" data-src="https://cdn.pixabay.com/photo/2019/12/23/19/56/scotland-4715309_1280.jpg" alt="p1" class="lazyload"></th>
+<th><img data-sizes="auto" data-src="https://cdn.pixabay.com/photo/2014/09/02/15/28/styggkarret-433688_1280.jpg" alt="p2" class="lazyload"></th>
+<th><img data-sizes="auto" data-src="https://cdn.pixabay.com/photo/2019/12/14/09/22/landscape-4694558_1280.jpg" alt="p3" class="lazyload"></th>
 </tr>
 </thead>
 <tbody><tr>
-<td><img src="https://cdn.pixabay.com/photo/2020/01/04/20/24/goal-4741589_1280.jpg" alt="p4"></td>
-<td><img src="https://cdn.pixabay.com/photo/2020/01/02/18/52/landscape-4736594_1280.jpg" alt="p5"></td>
-<td><img src="https://cdn.pixabay.com/photo/2019/12/12/15/30/people-4690996_1280.jpg" alt="p6"></td>
+<td><img data-sizes="auto" data-src="https://cdn.pixabay.com/photo/2020/01/04/20/24/goal-4741589_1280.jpg" alt="p4" class="lazyload"></td>
+<td><img data-sizes="auto" data-src="https://cdn.pixabay.com/photo/2020/01/02/18/52/landscape-4736594_1280.jpg" alt="p5" class="lazyload"></td>
+<td><img data-sizes="auto" data-src="https://cdn.pixabay.com/photo/2019/12/12/15/30/people-4690996_1280.jpg" alt="p6" class="lazyload"></td>
 </tr>
 </tbody></table>
 <h2 id="友链"><a href="#友链" class="headerlink" title="友链"></a>友链</h2><ul>
-<li><a href="https://timecan.ml/" title="时间胶囊"><img src="images/avatar.jpg" alt="时间胶囊"></a></li>
+<li><a href="https://timecan.ml/" title="时间胶囊"><img data-sizes="auto" data-src="images/avatar.jpg" alt="时间胶囊" class="lazyload"></a></li>
 </ul>
 
   </article>
@@ -267,39 +284,30 @@
     var gitalk = new Gitalk({
         clientID: '',
         clientSecret: '',
-        id: decodeURI(window.location.pathname),
+        id: window.location.pathname,
         repo: '',
         owner: '',
         admin: ''
     })
     gitalk.render('gitalk')
 </script>
-
 </section>
 </div>
 
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/js/mdui.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
- 
-    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-
-
- 
-    <script src="https://cdn.jsdelivr.net/npm/smoothscroll-for-websites@1.4.9/SmoothScroll.min.js"></script>
-
-
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js,gh/nexmoe/nexmoe.github.io@latest/js/app.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
-
-<script src="/js/app.js?v=1581246717824"></script>
-<script src="https://cdn.jsdelivr.net/npm/lazysizes@5.1.0/lazysizes.min.js"></script>
+<!--<script src="/js/app.js?v=1581259801396"></script>-->
 
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
 
 
+ 
+<script> 
+!function(e,t,a){function n(){c(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"),o(),r()}function r(){for(var e=0;e<d.length;e++)d[e].alpha<=0?(t.body.removeChild(d[e].el),d.splice(e,1)):(d[e].y--,d[e].scale+=.004,d[e].alpha-=.013,d[e].el.style.cssText="left:"+d[e].x+"px;top:"+d[e].y+"px;opacity:"+d[e].alpha+";transform:scale("+d[e].scale+","+d[e].scale+") rotate(45deg);background:"+d[e].color+";z-index:99999");requestAnimationFrame(r)}function o(){var t="function"==typeof e.onclick&&e.onclick;e.onclick=function(e){t&&t(),i(e)}}function i(e){var a=t.createElement("div");a.className="heart",d.push({el:a,x:e.clientX-5,y:e.clientY-5,scale:1,alpha:1,color:s()}),t.body.appendChild(a)}function c(e){var a=t.createElement("style");a.type="text/css";try{a.appendChild(t.createTextNode(e))}catch(t){a.styleSheet.cssText=e}t.getElementsByTagName("head")[0].appendChild(a)}function s(){return"rgb("+~~(255*Math.random())+","+~~(255*Math.random())+","+~~(255*Math.random())+")"}var d=[];e.requestAnimationFrame=function(){return e.requestAnimationFrame||e.webkitRequestAnimationFrame||e.mozRequestAnimationFrame||e.oRequestAnimationFrame||e.msRequestAnimationFrame||function(e){setTimeout(e,1e3/60)}}(),n()}(window,document);
+</script>
 
   
 

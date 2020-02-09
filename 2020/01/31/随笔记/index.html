@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="zh">
 
 <head>
   
   <title>随笔记 - 时间胶囊</title>
   <meta charset="UTF-8">
   <meta name="description" content="我与你的轻时光">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
   
   
 
@@ -24,14 +25,19 @@
 <meta property="article:tag" content="曾经">
 <meta property="article:tag" content="现在">
 <meta name="twitter:card" content="summary">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/css/style.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css" crossorigin>
+  
+  <!--<link rel="stylesheet" href="/css/style.css?v=1581259801413">-->
+
    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <style>
+      .nexmoe-avatar img:hover {
+        -webkit-transform: rotateZ(360deg);
+        -moz-transform: rotateZ(360deg);
+        transform: rotateZ(360deg);
+      }	
+    </style>
   
-  
-  <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
-  <link rel="stylesheet" href="/css/style.css?v=1581246717825">
 <meta name="generator" content="Hexo 4.2.0"></head>
 
 <body class="mdui-drawer-body-left">
@@ -40,10 +46,10 @@
     <div class="nexmoe-bg" style="background-image: url(https://i.loli.net/2020/01/06/kewAqLjBR21ZzTU.png)"></div>
     <div class="mdui-appbar mdui-shadow-0">
       <div class="mdui-toolbar">
-        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">menu</i></a>
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu">menu</i></a>
         <div class="mdui-toolbar-spacer"></div>
         <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
-        <a href="/" title="ILSH·M" class="mdui-btn mdui-btn-icon"><img src="/images/avatar.jpg"></a>
+        <a href="/" title="ILSH·M" class="mdui-btn mdui-btn-icon"><img src="/images/avatar.jpg" alt="ILSH·M"></a>
        </div>
     </div>
   </div>
@@ -51,7 +57,7 @@
       <div class="nexmoe-drawer mdui-drawer" id="drawer">
     <div class="nexmoe-avatar mdui-ripple">
         <a href="/" title="ILSH·M">
-            <img src="/images/avatar.jpg" alt="ILSH·M">
+            <img src="/images/avatar.jpg" alt="ILSH·M" alt="ILSH·M">
         </a>
     </div>
     <div class="nexmoe-count">
@@ -59,7 +65,7 @@
         <div><span>Tags</span>20</div>
         <div><span>Categories</span>4</div>
     </div>
-    <ul class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
         
         <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
             <i class="mdui-list-item-icon nexmoefont icon-home"></i>
@@ -82,7 +88,7 @@
             </div>
         </a>
         
-    </ul>
+    </div>
     <aside id="nexmoe-sidebar">
   
   <div class="nexmoe-widget-wrap">
@@ -179,12 +185,14 @@
   <div id="nexmoe-content">
     <div class="nexmoe-primary">
         <div class="nexmoe-post">
-    <div class="nexmoe-post-cover"> 
-        
-        <img src="https://cdn.pixabay.com/photo/2019/10/18/17/35/flowers-4559785_1280.jpg">
-        
-        <h1>随笔记</h1>
-    </div>
+  
+      <div class="nexmoe-post-cover" 
+          style="padding-bottom: NaN%;"
+      > 
+          <img data-src="https://cdn.pixabay.com/photo/2019/10/18/17/35/flowers-4559785_1280.jpg" data-sizes="auto" alt="随笔记" class="lazyload">
+          <h1>随笔记</h1>
+      </div>
+  
   <div class="nexmoe-post-meta">
     <a><i class="nexmoefont icon-calendar-fill"></i>2020年01月31日</a>
     <a><i class="nexmoefont icon-areachart"></i>1.1k 字</a>
@@ -195,7 +203,21 @@
     
       <a class="nexmoefont icon-tag-fill -link" href="/tags/%E6%9B%BE%E7%BB%8F/" rel="tag">曾经</a> <a class="nexmoefont icon-tag-fill -link" href="/tags/%E7%8E%B0%E5%9C%A8/" rel="tag">现在</a>
     
+    
   </div>
+
+  <div class="nexmoe-post-right">
+    
+      <div class="nexmoe-fixed">
+        <div class="nexmoe-valign">
+            <div class="nexmoe-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#曾经"><span class="toc-number">1.</span> <span class="toc-text">曾经</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#现在"><span class="toc-number">2.</span> <span class="toc-text">现在</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#终"><span class="toc-number">3.</span> <span class="toc-text">终</span></a></li></ol>
+            </div>
+        </div>
+      </div>
+    
+  </div>
+
   <article>
     <p>刚刚在看到了一些关于jQuery的资料，jQuery可以通过它内置的方法轻松的做到一些简单的页面动画效果。我写了一个很丑的页面进行了尝试，我突然意识到一个问题…<a id="more"></a></p>
 <h2 id="曾经"><a href="#曾经" class="headerlink" title="曾经"></a>曾经</h2><p>曾经何时，我也是刚接触了CS1.6的地图制作。现在想想，那个时候是真正的快乐…哈哈哈</p>
@@ -253,38 +275,29 @@
     var gitalk = new Gitalk({
         clientID: '',
         clientSecret: '',
-        id: decodeURI(window.location.pathname),
+        id: window.location.pathname,
         repo: '',
         owner: '',
         admin: ''
     })
     gitalk.render('gitalk')
 </script>
-
 </section>
 </div>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/js/mdui.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
- 
-    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-
-
- 
-    <script src="https://cdn.jsdelivr.net/npm/smoothscroll-for-websites@1.4.9/SmoothScroll.min.js"></script>
-
-
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js,gh/nexmoe/nexmoe.github.io@latest/js/app.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
-
-<script src="/js/app.js?v=1581246717840"></script>
-<script src="https://cdn.jsdelivr.net/npm/lazysizes@5.1.0/lazysizes.min.js"></script>
+<!--<script src="/js/app.js?v=1581259801429"></script>-->
 
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
 
 
+ 
+<script> 
+!function(e,t,a){function n(){c(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"),o(),r()}function r(){for(var e=0;e<d.length;e++)d[e].alpha<=0?(t.body.removeChild(d[e].el),d.splice(e,1)):(d[e].y--,d[e].scale+=.004,d[e].alpha-=.013,d[e].el.style.cssText="left:"+d[e].x+"px;top:"+d[e].y+"px;opacity:"+d[e].alpha+";transform:scale("+d[e].scale+","+d[e].scale+") rotate(45deg);background:"+d[e].color+";z-index:99999");requestAnimationFrame(r)}function o(){var t="function"==typeof e.onclick&&e.onclick;e.onclick=function(e){t&&t(),i(e)}}function i(e){var a=t.createElement("div");a.className="heart",d.push({el:a,x:e.clientX-5,y:e.clientY-5,scale:1,alpha:1,color:s()}),t.body.appendChild(a)}function c(e){var a=t.createElement("style");a.type="text/css";try{a.appendChild(t.createTextNode(e))}catch(t){a.styleSheet.cssText=e}t.getElementsByTagName("head")[0].appendChild(a)}function s(){return"rgb("+~~(255*Math.random())+","+~~(255*Math.random())+","+~~(255*Math.random())+")"}var d=[];e.requestAnimationFrame=function(){return e.requestAnimationFrame||e.webkitRequestAnimationFrame||e.mozRequestAnimationFrame||e.oRequestAnimationFrame||e.msRequestAnimationFrame||function(e){setTimeout(e,1e3/60)}}(),n()}(window,document);
+</script>
 
   
 

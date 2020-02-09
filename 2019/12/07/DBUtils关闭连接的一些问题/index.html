@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="zh">
 
 <head>
   
   <title>DBUtils关闭连接的一些问题 - 时间胶囊</title>
   <meta charset="UTF-8">
   <meta name="description" content="我与你的轻时光">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
   
   
 
@@ -25,14 +26,19 @@
 <meta property="article:tag" content="dbutils">
 <meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/css/style.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css" crossorigin>
+  
+  <!--<link rel="stylesheet" href="/css/style.css?v=1581259801535">-->
+
    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <style>
+      .nexmoe-avatar img:hover {
+        -webkit-transform: rotateZ(360deg);
+        -moz-transform: rotateZ(360deg);
+        transform: rotateZ(360deg);
+      }	
+    </style>
   
-  
-  <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
-  <link rel="stylesheet" href="/css/style.css?v=1581246717927">
 <meta name="generator" content="Hexo 4.2.0"></head>
 
 <body class="mdui-drawer-body-left">
@@ -41,10 +47,10 @@
     <div class="nexmoe-bg" style="background-image: url(https://i.loli.net/2020/01/06/kewAqLjBR21ZzTU.png)"></div>
     <div class="mdui-appbar mdui-shadow-0">
       <div class="mdui-toolbar">
-        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">menu</i></a>
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu">menu</i></a>
         <div class="mdui-toolbar-spacer"></div>
         <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
-        <a href="/" title="ILSH·M" class="mdui-btn mdui-btn-icon"><img src="/images/avatar.jpg"></a>
+        <a href="/" title="ILSH·M" class="mdui-btn mdui-btn-icon"><img src="/images/avatar.jpg" alt="ILSH·M"></a>
        </div>
     </div>
   </div>
@@ -52,7 +58,7 @@
       <div class="nexmoe-drawer mdui-drawer" id="drawer">
     <div class="nexmoe-avatar mdui-ripple">
         <a href="/" title="ILSH·M">
-            <img src="/images/avatar.jpg" alt="ILSH·M">
+            <img src="/images/avatar.jpg" alt="ILSH·M" alt="ILSH·M">
         </a>
     </div>
     <div class="nexmoe-count">
@@ -60,7 +66,7 @@
         <div><span>Tags</span>20</div>
         <div><span>Categories</span>4</div>
     </div>
-    <ul class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
         
         <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
             <i class="mdui-list-item-icon nexmoefont icon-home"></i>
@@ -83,7 +89,7 @@
             </div>
         </a>
         
-    </ul>
+    </div>
     <aside id="nexmoe-sidebar">
   
   <div class="nexmoe-widget-wrap">
@@ -180,12 +186,14 @@
   <div id="nexmoe-content">
     <div class="nexmoe-primary">
         <div class="nexmoe-post">
-    <div class="nexmoe-post-cover"> 
-        
-        <img src="https://cdn.pixabay.com/photo/2017/05/11/11/15/workplace-2303851_1280.jpg">
-        
-        <h1>DBUtils关闭连接的一些问题</h1>
-    </div>
+  
+      <div class="nexmoe-post-cover" 
+          style="padding-bottom: NaN%;"
+      > 
+          <img data-src="https://cdn.pixabay.com/photo/2017/05/11/11/15/workplace-2303851_1280.jpg" data-sizes="auto" alt="DBUtils关闭连接的一些问题" class="lazyload">
+          <h1>DBUtils关闭连接的一些问题</h1>
+      </div>
+  
   <div class="nexmoe-post-meta">
     <a><i class="nexmoefont icon-calendar-fill"></i>2019年12月07日</a>
     <a><i class="nexmoefont icon-areachart"></i>1.1k 字</a>
@@ -196,7 +204,21 @@
     
       <a class="nexmoefont icon-tag-fill -link" href="/tags/c3p0/" rel="tag">c3p0</a> <a class="nexmoefont icon-tag-fill -link" href="/tags/dbutils/" rel="tag">dbutils</a> <a class="nexmoefont icon-tag-fill -link" href="/tags/mysql/" rel="tag">mysql</a>
     
+    
   </div>
+
+  <div class="nexmoe-post-right">
+    
+      <div class="nexmoe-fixed">
+        <div class="nexmoe-valign">
+            <div class="nexmoe-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题描述"><span class="toc-number">1.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#疑惑点"><span class="toc-number">2.</span> <span class="toc-text">疑惑点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决"><span class="toc-number">3.</span> <span class="toc-text">解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方案代码一："><span class="toc-number">3.1.</span> <span class="toc-text">解决方案代码一：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方案代码二："><span class="toc-number">3.2.</span> <span class="toc-text">解决方案代码二：</span></a></li></ol></li></ol>
+            </div>
+        </div>
+      </div>
+    
+  </div>
+
   <article>
     <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>昨天学习了mysql与jdbc事务的一些操作，在之前写好的DBUtils类中进行了一些关于事务处理的补充。然而在实际在测试项目中使用它的时候，却出现了一个错误<a id="more"></a>：当我在jsp页面点击“提交”后，第一次处理便成功了。而在此时后退页面重新提交，程序便报了一个SQLException：you can’t operate a closed connection!</p>
 <p>通过这句话，我定位出导致问题出现的代码：</p>
@@ -255,38 +277,29 @@
     var gitalk = new Gitalk({
         clientID: '',
         clientSecret: '',
-        id: decodeURI(window.location.pathname),
+        id: window.location.pathname,
         repo: '',
         owner: '',
         admin: ''
     })
     gitalk.render('gitalk')
 </script>
-
 </section>
 </div>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/js/mdui.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
- 
-    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-
-
- 
-    <script src="https://cdn.jsdelivr.net/npm/smoothscroll-for-websites@1.4.9/SmoothScroll.min.js"></script>
-
-
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js,gh/nexmoe/nexmoe.github.io@latest/js/app.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
-
-<script src="/js/app.js?v=1581246717935"></script>
-<script src="https://cdn.jsdelivr.net/npm/lazysizes@5.1.0/lazysizes.min.js"></script>
+<!--<script src="/js/app.js?v=1581259801547"></script>-->
 
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
 
 
+ 
+<script> 
+!function(e,t,a){function n(){c(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"),o(),r()}function r(){for(var e=0;e<d.length;e++)d[e].alpha<=0?(t.body.removeChild(d[e].el),d.splice(e,1)):(d[e].y--,d[e].scale+=.004,d[e].alpha-=.013,d[e].el.style.cssText="left:"+d[e].x+"px;top:"+d[e].y+"px;opacity:"+d[e].alpha+";transform:scale("+d[e].scale+","+d[e].scale+") rotate(45deg);background:"+d[e].color+";z-index:99999");requestAnimationFrame(r)}function o(){var t="function"==typeof e.onclick&&e.onclick;e.onclick=function(e){t&&t(),i(e)}}function i(e){var a=t.createElement("div");a.className="heart",d.push({el:a,x:e.clientX-5,y:e.clientY-5,scale:1,alpha:1,color:s()}),t.body.appendChild(a)}function c(e){var a=t.createElement("style");a.type="text/css";try{a.appendChild(t.createTextNode(e))}catch(t){a.styleSheet.cssText=e}t.getElementsByTagName("head")[0].appendChild(a)}function s(){return"rgb("+~~(255*Math.random())+","+~~(255*Math.random())+","+~~(255*Math.random())+")"}var d=[];e.requestAnimationFrame=function(){return e.requestAnimationFrame||e.webkitRequestAnimationFrame||e.mozRequestAnimationFrame||e.oRequestAnimationFrame||e.msRequestAnimationFrame||function(e){setTimeout(e,1e3/60)}}(),n()}(window,document);
+</script>
 
   
 
