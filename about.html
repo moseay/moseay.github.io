@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="zh">
+<html lang="zh-CN">
 
 <head>
   
@@ -18,7 +18,7 @@
 <meta property="og:url" content="https://timecan.ml/about.html">
 <meta property="og:site_name" content="时间胶囊">
 <meta property="og:description" content="关于我                     我性别：♂星座：♊爱好：混吃等死（主要是混吃） 这内心的事情很难找人诉说，“说说”与“朋友圈”终究不是片净土。一直想弄个博客站，在无数次尝试后，最终选择了Hexo…真的是为了省事，不需要服务器，不需要后端，直接生成静态页面。同时还能学习md语法等…博客主要就是自己看，里面会写一些心事与日记。还会记录学习的内容… 里这里…是我与自己交流的一个地方…这里">
-<meta property="og:locale" content="zh">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.pixabay.com/photo/2018/04/29/01/15/coast-3358815_1280.jpg">
 <meta property="og:image" content="https://cdn.pixabay.com/photo/2017/03/27/12/26/macaroons-2178371_1280.jpg">
 <meta property="og:image" content="https://cdn.pixabay.com/photo/2010/12/13/10/23/oleander-2771_1280.jpg">
@@ -30,9 +30,9 @@
 <meta property="article:author" content="ILSH·M">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.pixabay.com/photo/2018/04/29/01/15/coast-3358815_1280.jpg">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/css/style.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/gh/nexmoe/nexmoe.github.io@latest/css/style.css,npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css" crossorigin>
   
-  <!--<link rel="stylesheet" href="/css/style.css?v=1581749658348">-->
+  <!--<link rel="stylesheet" href="/css/style.css?v=1582201769851">-->
 
    
     <style>
@@ -54,7 +54,7 @@
     <div class="nexmoe-bg" style="background-image: url(https://i.loli.net/2020/01/06/kewAqLjBR21ZzTU.png)"></div>
     <div class="mdui-appbar mdui-shadow-0">
       <div class="mdui-toolbar">
-        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu">menu</i></a>
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
         <div class="mdui-toolbar-spacer"></div>
         <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
         <a href="/" title="ILSH·M" class="mdui-btn mdui-btn-icon"><img src="https://i.loli.net/2020/02/09/f1GxrwmYpjQ6K4u.jpg" alt="ILSH·M"></a>
@@ -69,9 +69,9 @@
         </a>
     </div>
     <div class="nexmoe-count">
-        <div><span>Articles</span>13</div>
-        <div><span>Tags</span>24</div>
-        <div><span>Categories</span>4</div>
+        <div><span>文章</span>13</div>
+        <div><span>标签</span>0</div>
+        <div><span>分类</span>4</div>
     </div>
     <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
         
@@ -79,6 +79,13 @@
             <i class="mdui-list-item-icon nexmoefont icon-home"></i>
             <div class="mdui-list-item-content">
                 回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
             </div>
         </a>
         
@@ -100,15 +107,23 @@
     <aside id="nexmoe-sidebar">
   
   <div class="nexmoe-widget-wrap">
-    <h3 class="nexmoe-widget-title">Social</h3>
+    <div class="nexmoe-widget nexmoe-search">
+        <form id="search_form" action_e="https://cn.bing.com/search?q=site:timecan.ml" onsubmit="return search();">
+            <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+        </form>
+    </div>
+</div>
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
     <div class="nexmoe-widget nexmoe-social">
-        <a class="mdui-ripple" href="https://github.com/moseay" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+        <a class="mdui-ripple" href="https://github.com/moseay" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(29, 161, 242);background-color: rgba(29, 161, 242, .15);">
             <i class="nexmoefont icon-github"></i>
-        </a><a class="mdui-ripple" href="https://t.me/White_Two" target="_blank" mdui-tooltip="{content: 'Telegram'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+        </a><a class="mdui-ripple" href="https://t.me/White_Two" target="_blank" mdui-tooltip="{content: 'Telegram'}" style="color: rgb(29, 161, 242);background-color: rgba(29, 161, 242, .15);">
             <i class="nexmoefont icon-telegram"></i>
-        </a><a class="mdui-ripple" href="https://twitter.com/_mos_ae?s=09" target="_blank" mdui-tooltip="{content: 'Twitter'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+        </a><a class="mdui-ripple" href="https://twitter.com/_mos_ae?s=09" target="_blank" mdui-tooltip="{content: 'Twitter'}" style="color: rgb(29, 161, 242);background-color: rgba(29, 161, 242, .15);">
             <i class="nexmoefont icon-twitter"></i>
-        </a><a class="mdui-ripple" href="tencent://message/?uin=824665292&Site=&Menu=yes" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+        </a><a class="mdui-ripple" href="tencent://message/?uin=824665292&Site=&Menu=yes" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(29, 161, 242);background-color: rgba(29, 161, 242, .15);">
             <i class="nexmoefont icon-QQ"></i>
         </a>
     </div>
@@ -116,7 +131,7 @@
   
   
   <div class="nexmoe-widget-wrap">
-    <h3 class="nexmoe-widget-title">Categories</h3>
+    <h3 class="nexmoe-widget-title">文章分类</h3>
     <div class="nexmoe-widget">
 
       <ul class="category-list">
@@ -163,24 +178,6 @@
 
   
   
-  <div class="nexmoe-widget-wrap">
-    <h3 class="nexmoe-widget-title">Tagcloud</h3>
-    <div id="randomtagcloud" class="nexmoe-widget tagcloud">
-      <a href="/tags/MVC/" style="font-size: 10px;">MVC</a> <a href="/tags/c3p0/" style="font-size: 10px;">c3p0</a> <a href="/tags/dbutils/" style="font-size: 10px;">dbutils</a> <a href="/tags/filter/" style="font-size: 10px;">filter</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/listener/" style="font-size: 10px;">listener</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/tomcat7/" style="font-size: 10px;">tomcat7</a> <a href="/tags/tomcat8/" style="font-size: 10px;">tomcat8</a> <a href="/tags/%E4%B9%90%E8%A7%82/" style="font-size: 10px;">乐观</a> <a href="/tags/%E4%BD%A0%E7%9A%84%E5%90%8D%E5%AD%97/" style="font-size: 10px;">你的名字</a> <a href="/tags/%E5%88%86%E9%A1%B5/" style="font-size: 10px;">分页</a> <a href="/tags/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" style="font-size: 10px;">动态代理</a> <a href="/tags/%E5%AD%A4%E7%8B%AC/" style="font-size: 10px;">孤独</a> <a href="/tags/%E5%BF%83%E4%BA%8B/" style="font-size: 20px;">心事</a> <a href="/tags/%E6%9B%BE%E7%BB%8F/" style="font-size: 10px;">曾经</a> <a href="/tags/%E6%9C%AA%E6%9D%A5/" style="font-size: 10px;">未来</a> <a href="/tags/%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2/" style="font-size: 10px;">条件查询</a> <a href="/tags/%E6%A2%A6%E5%A2%83/" style="font-size: 10px;">梦境</a> <a href="/tags/%E6%AD%AA%E6%A5%BC/" style="font-size: 10px;">歪楼</a> <a href="/tags/%E7%8E%B0%E5%9C%A8/" style="font-size: 10px;">现在</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 10px;">生活</a> <a href="/tags/%E8%87%AA%E6%88%91/" style="font-size: 10px;">自我</a>
-    </div>
-    
-  </div>
-
-  
-  
-  <div class="nexmoe-widget-wrap">
-    <h3 class="nexmoe-widget-title">Archive</h3>
-    <div class="nexmoe-widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li></ul>
-    </div>
-  </div>
-
-
   
 </aside>
     <div class="nexmoe-copyright">
@@ -194,21 +191,17 @@
     <div class="nexmoe-primary">
         <div class="nexmoe-post">
   
-      <div class="nexmoe-post-cover" 
-          style="padding-bottom: 66.66666666666666%;"
-      > 
+      <div class="nexmoe-post-cover" style="padding-bottom: 75%;"> 
           <img data-src="https://cdn.pixabay.com/photo/2016/02/19/11/47/man-1209957_1280.jpg" data-sizes="auto" alt="关于我" class="lazyload">
           <h1>关于我</h1>
       </div>
   
-  <div class="nexmoe-post-meta">
+  
+  <div class="nexmoe-post-meta" style="margin:10px 0!important;">
     <a><i class="nexmoefont icon-calendar-fill"></i>2020年01月06日</a>
     <a><i class="nexmoefont icon-areachart"></i>204 字</a>
     <a><i class="nexmoefont icon-time-circle-fill"></i>大概 1 分钟</a>
-    
-    
-    
-  </div>
+</div>
 
   <div class="nexmoe-post-right">
     
@@ -224,7 +217,7 @@
 
   <article>
     <h1 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h1>
-    <div id="aplayer-DXodHyLi" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-rsWgmfhf" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="1331819951" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"
     ></div>
 
@@ -249,20 +242,26 @@
 <h2 id="糖"><a href="#糖" class="headerlink" title="糖"></a>糖</h2><p>🍬🍬🍬🍬🍬🍬🍬撒糖撒糖！！</p>
 
   </article>
-  
+
+  <div class="nexmoe-post-meta">
     
-<div class="nexmoe-post-copyright">
-<i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
-<strong>Author：</strong>ILSH·M<br>
-<strong>Link：</strong><a href="https://timecan.ml/about.html" title="https:&#x2F;&#x2F;timecan.ml&#x2F;about.html" target="_blank" rel="noopener">https:&#x2F;&#x2F;timecan.ml&#x2F;about.html</a><br>
-
-  <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
-
+    
 </div>
 
+  <div class="nexmoe-post-footer">
+    
+      
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>ILSH·M<br>
+    <strong>本文链接：</strong><a href="https://timecan.ml/about.html" title="https:&#x2F;&#x2F;timecan.ml&#x2F;about.html" target="_blank" rel="noopener">https:&#x2F;&#x2F;timecan.ml&#x2F;about.html</a><br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
 
-  
-  <section class="nexmoe-comment">
+
+    
+    <section class="nexmoe-comment">
     <!-- Unpkg -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/disqusjs@1.2.5/dist/disqusjs.min.css">
 <script src="https://cdn.jsdelivr.net/npm/disqusjs@1.2.5/dist/disqus.min.js"></script>
@@ -281,12 +280,13 @@ var dsqjs = new DisqusJS({
 });
 </script>
 </section>
+  </div>
 </div>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js,gh/nexmoe/nexmoe.github.io@latest/js/app.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
-<!--<script src="/js/app.js?v=1581749658360"></script>-->
+<!--<script src="/js/app.js?v=1582201769855"></script>-->
 
 
     <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
