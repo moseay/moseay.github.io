@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <title>hibernate的简介 - 时间胶囊</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="我与你的轻时光">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/vnd.microsoft.icon" />
+  <meta name="description" content="针对hibernate学习中遇到的一些需要记住的知识点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hibernate的简介">
+<meta property="og:url" content="https://timecan.ml/2020/03/01/hibernate%E7%9A%84%E7%AE%80%E4%BB%8B/index.html">
+<meta property="og:site_name" content="时间胶囊">
+<meta property="og:description" content="针对hibernate学习中遇到的一些需要记住的知识点">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-01T09:39:37.000Z">
+<meta property="article:modified_time" content="2020-03-01T11:01:18.486Z">
+<meta property="article:author" content="ILSH·M">
+<meta property="article:tag" content="hibernate">
+<meta name="twitter:card" content="summary">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/gh/nexmoe/nexmoe.github.io@latest/css/style.css,npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css" crossorigin>
+  
+  <!--<link rel="stylesheet" href="/css/style.css?v=1583131568017">-->
+
+   
+    <style>
+      .nexmoe-avatar img:hover {
+        -webkit-transform: rotateZ(360deg);
+        -moz-transform: rotateZ(360deg);
+        transform: rotateZ(360deg);
+      }	
+    </style>
+  
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://i.loli.net/2020/01/06/kewAqLjBR21ZzTU.png)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="ILSH·M" class="mdui-btn mdui-btn-icon"><img src="https://i.loli.net/2020/02/21/wA7z8JBrlUORWQE.jpg" alt="ILSH·M"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="ILSH·M">
+            <img src="https://i.loli.net/2020/02/21/wA7z8JBrlUORWQE.jpg" alt="ILSH·M" alt="ILSH·M">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>15</div>
+        <div><span>标签</span>9</div>
+        <div><span>分类</span>3</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/PY.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://github.com/moseay" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(29, 161, 242);background-color: rgba(29, 161, 242, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a><a class="mdui-ripple" href="https://t.me/White_Two" target="_blank" mdui-tooltip="{content: 'Telegram'}" style="color: rgb(29, 161, 242);background-color: rgba(29, 161, 242, .15);">
+            <i class="nexmoefont icon-telegram"></i>
+        </a><a class="mdui-ripple" href="https://twitter.com/_mos_ae?s=09" target="_blank" mdui-tooltip="{content: 'Twitter'}" style="color: rgb(29, 161, 242);background-color: rgba(29, 161, 242, .15);">
+            <i class="nexmoefont icon-twitter"></i>
+        </a><a class="mdui-ripple" href="tencent://message/?uin=824665292&Site=&Menu=yes" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(29, 161, 242);background-color: rgba(29, 161, 242, .15);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/javaweb/">javaweb</a>
+          <span class="category-list-count">7</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/心事/">心事</a>
+          <span class="category-list-count">4</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/随笔/">随笔</a>
+          <span class="category-list-count">3</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">标签云</h3>
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/filter/" style="font-size: 10px;">filter</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/listener/" style="font-size: 10px;">listener</a> <a href="/tags/%E5%88%86%E9%A1%B5/" style="font-size: 10px;">分页</a> <a href="/tags/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" style="font-size: 10px;">动态代理</a> <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%97%A5%E6%9D%82/" style="font-size: 10px;">博客日杂</a> <a href="/tags/%E5%B0%8F%E6%96%87%E7%AB%A0/" style="font-size: 10px;">小文章</a> <a href="/tags/%E6%A2%A6%E5%A2%83/" style="font-size: 10px;">梦境</a> <a href="/tags/%E8%87%AA%E6%88%91/" style="font-size: 10px;">自我</a>
+    </div>
+    
+  </div>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2020 ILSH·M
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: 66.66666666666666%;"> 
+          <img data-src="https://cdn.pixabay.com/photo/2020/02/25/09/57/luang-prabang-4878453_960_720.jpg" data-sizes="auto" alt="hibernate的简介" class="lazyload">
+          <h1>hibernate的简介</h1>
+      </div>
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2020年03月01日</a>
+    <a><i class="nexmoefont icon-areachart"></i>2.9k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 13 分钟</a>
+</div>
+
+
+  <div class="nexmoe-post-right">
+    
+      <div class="nexmoe-fixed">
+        <div class="nexmoe-valign">
+            <div class="nexmoe-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置文件"><span class="toc-number">1.</span> <span class="toc-text">配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ORM-Object-Relation-Mapping-配置文件"><span class="toc-number">1.1.</span> <span class="toc-text">ORM(Object Relation Mapping)配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#主键生成规则"><span class="toc-number">1.1.1.</span> <span class="toc-text">主键生成规则</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#主配置文件"><span class="toc-number">1.2.</span> <span class="toc-text">主配置文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实体创建规则"><span class="toc-number">2.</span> <span class="toc-text">实体创建规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#API"><span class="toc-number">3.</span> <span class="toc-text">API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实体的三种状态"><span class="toc-number">4.</span> <span class="toc-text">实体的三种状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hibernate一级缓存测试（session缓存）"><span class="toc-number">5.</span> <span class="toc-text">hibernate一级缓存测试（session缓存）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事务"><span class="toc-number">6.</span> <span class="toc-text">事务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#特性与指定隔离级别"><span class="toc-number">6.1.</span> <span class="toc-text">特性与指定隔离级别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用事务"><span class="toc-number">6.2.</span> <span class="toc-text">使用事务</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查询语句"><span class="toc-number">7.</span> <span class="toc-text">查询语句</span></a></li></ol>
+            </div>
+        </div>
+      </div>
+    
+  </div>
+
+  <article>
+    <p>针对hibernate学习中遇到的一些需要记住的知识点</p>
+<a id="more"></a>
+
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><h3 id="ORM-Object-Relation-Mapping-配置文件"><a href="#ORM-Object-Relation-Mapping-配置文件" class="headerlink" title="ORM(Object Relation Mapping)配置文件"></a>ORM(Object Relation Mapping)配置文件</h3><p>实体关系映射文件，在hibernate中，我们运用面向对象思维进行数据库操作，在其中一切数据库操作皆为对象操作。因此，我们需要配置对象与表之间的关系。</p>
+<p>一般配置文件命名为：实体类简名.hbm.xml</p>
+<p>配置文件如下：</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+&lt;!DOCTYPE hibernate-mapping PUBLIC
+        &quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;
+        &quot;http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd&quot;&gt;
+&lt;hibernate-mapping package=&quot;com.ilshmos.domain&quot;&gt;
+    &lt;class name=&quot;Customer&quot; table=&quot;cst_customer&quot;&gt;
+        &lt;id name=&quot;cust_id&quot;&gt;
+            &lt;generator class=&quot;native&quot;&gt;&lt;/generator&gt;
+        &lt;/id&gt;
+        &lt;property name=&quot;cust_name&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;cust_source&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;cust_industry&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;cust_level&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;cust_linkman&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;cust_phone&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;cust_mobile&quot;&gt;&lt;/property&gt;
+    &lt;/class&gt;
+&lt;/hibernate-mapping&gt;</code></pre>
+<p>这是一个最简单的配置文件，其中，我们首先配置了根元素<code>&lt;hibernate-mapping package=&quot;com.moseay.domain&quot;&gt;</code>。在这个根元素中，假设我们指定了package属性，填入了实体类所在的包的全包名，那么在下面配置class节点时（或是任意在根元素内部进行实体类名填写时）都可以省略全包名。</p>
+<p><code>&lt;class name=&quot;Customer&quot; table=&quot;cst_customer&quot;&gt;</code>该元素表示了实体与表之间的映射，name属性是实体类的全名，table属性是数据表的名称。</p>
+<p><code>&lt;id name=&quot;cust_id&quot;&gt;</code>元素代表实体的主键，为何表的字段中要单独列出该元素，会在后面的<strong><u>实体创建规则</u></strong>中讲解。</p>
+<p><code>&lt;generator class=&quot;native&quot;&gt;&lt;/generator&gt;</code><strong><u>主键生成规则</u></strong>，该属性我们会单独开辟小标题来讲。</p>
+<p><code>&lt;property name=&quot;cust_name&quot;&gt;&lt;/property&gt;</code>剩下的都是实体表中的非主键字段。</p>
+<p>id与property元素的属性：</p>
+<ul>
+<li>name属性代表其实体类对应的成员变量名称。</li>
+<li>column(可选): 填写表中的主键列名.默认值:列名会默认使用属性名</li>
+<li>type(可选):填写列(属性)的类型.hibernate会自动检测实体的属性类型.每个类型有三种填法: java类型|hibernate类型|数据库类型</li>
+<li>not-null(可选):配置该属性(列)是否不能为空. 默认值:false</li>
+<li>length(可选):配置数据库中列的长度. 默认值:使用数据库类型的最大长度</li>
+</ul>
+<h4 id="主键生成规则"><a href="#主键生成规则" class="headerlink" title="主键生成规则"></a>主键生成规则</h4><ul>
+<li><p>自然主键与代理主键：自然主键是实体的业务属性中，包含一个可以作为主键的属性，例如不能相同的用户名；代理主键是指不包含在业务内，手动指定的无关业务意义的主键。</p>
+</li>
+<li><p>主键生成策略：</p>
+<ol>
+<li><p>identity   ——   主键自增，由数据库维护</p>
+</li>
+<li><p>sequence   ——   oracle数据库使用</p>
+</li>
+<li><p>native     ——   identity，sequence，hilo三选一。（由于几乎市面上的数据库都至少能够支持identity或sequence，所以其实是二选一）</p>
+</li>
+<li><p>uuid       ——   生成uuid作为主键，类型必须是String</p>
+</li>
+<li><p>assigned   ——   自然主键生成，即不做任何操作。由程序员在写业务时自己指定。</p>
+</li>
+</ol>
+<hr>
+<ol start="6">
+<li>hilo       ——   本身是主键生成算法，在此代表hibernate实现的主键生成策略。即在插入数据库时，使用它算出主键后填入。不建议使用。</li>
+<li>increment  ——   主键自增，hibernate自行实现，每次插入时，会先查询最大主键，然后＋1后在执行插入。线程不安全，不建议使用。</li>
+</ol>
+</li>
+</ul>
+<h3 id="主配置文件"><a href="#主配置文件" class="headerlink" title="主配置文件"></a>主配置文件</h3><p>主配置文件用于建立hibernate与数据库之间的关系</p>
+<p>一般配置默认放在src下，且配置文件名称为：hibernate.cfg.xml</p>
+<p>配置文件如下：</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE hibernate-configuration PUBLIC
+    &quot;-//Hibernate/Hibernate Configuration DTD 3.0//EN&quot;
+    &quot;http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd&quot;&gt;
+&lt;hibernate-configuration&gt;
+    &lt;session-factory&gt;
+         &lt;!-- 数据库驱动 --&gt;
+        &lt;property name=&quot;hibernate.connection.driver_class&quot;&gt;com.mysql.jdbc.Driver&lt;/property&gt;
+         &lt;!-- 数据库url --&gt;
+        &lt;property name=&quot;hibernate.connection.url&quot;&gt;jdbc:mysql:///hibernate&lt;/property&gt;
+         &lt;!-- 数据库连接用户名 --&gt;
+        &lt;property name=&quot;hibernate.connection.username&quot;&gt;root&lt;/property&gt;
+         &lt;!-- 数据库连接密码 --&gt;
+        &lt;property name=&quot;hibernate.connection.password&quot;&gt;root&lt;/property&gt;
+        &lt;!-- 数据库方言
+            不同的数据库中,sql语法略有区别. 指定方言可以让hibernate框架在生成sql语句时.针对数据库的方言生成.
+            sql99标准: DDL 定义语言  库表的增删改查
+                      DCL 控制语言  事务 权限
+                      DML 操纵语言  增删改查
+            注意: MYSQL在选择方言时,请选择最短的方言.指定长方言不利于换数据库引擎操作。短方言默认包含其他几种。
+         --&gt;
+        &lt;property name=&quot;hibernate.dialect&quot;&gt;org.hibernate.dialect.MySQLDialect&lt;/property&gt;
+        &lt;!-- 将hibernate生成的sql语句打印到控制台 --&gt;
+        &lt;property name=&quot;hibernate.show_sql&quot;&gt;true&lt;/property&gt;
+        &lt;!-- 将hibernate生成的sql语句格式化(语法缩进) --&gt;
+        &lt;property name=&quot;hibernate.format_sql&quot;&gt;true&lt;/property&gt;
+        &lt;!-- 
+        ## auto schema export  自动导出表结构. 自动建表
+        #hibernate.hbm2ddl.auto create        自动建表.每次框架运行都会创建新的表.以前表将会被覆盖,表数据会丢失.(开发环境中测试使用)
+        #hibernate.hbm2ddl.auto create-drop 自动建表.每次框架运行结束都会将所有表删除.(开发环境中测试使用)
+        #hibernate.hbm2ddl.auto update(推荐使用) 自动生成表.如果已经存在不会再生成.如果表有变动.自动更新表(不会删除任何数据).
+        #hibernate.hbm2ddl.auto validate    校验.不自动生成表.每次启动会校验数据库中表是否正确.校验失败.
+         --&gt;
+        &lt;property name=&quot;hibernate.hbm2ddl.auto&quot;&gt;update&lt;/property&gt;
+        &lt;!-- 引入orm元数据
+            路径书写: 填写src下的路径
+         --&gt;
+        &lt;mapping resource=&quot;cn/moseay/domain/Customer.hbm.xml&quot; /&gt;
+    &lt;/session-factory&gt;
+&lt;/hibernate-configuration&gt;</code></pre>
+<h2 id="实体创建规则"><a href="#实体创建规则" class="headerlink" title="实体创建规则"></a>实体创建规则</h2><p>实体创建规则：</p>
+<ol>
+<li>无参构造</li>
+<li>private成员变量，提供get，set方法</li>
+</ol>
+<hr>
+<ol start="3">
+<li>使用包装类型而非基本类型（针对hibernate）</li>
+<li>hibernate操作数据库，数据表必须有主键</li>
+<li>hibernate使用cglib代理生成代理对象，因此实体类不能使用final修饰（被final修饰不能被继承，无法创建代理）</li>
+</ol>
+<p>注意：hibernate操作数据表，要求数据表必须有主键。因此主键在hibernate中算是一个特殊的数据库字段。</p>
+<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><p><code>Configuration cfg = new Configuration();</code>创建配置类</p>
+<p><code>cfg.configure()</code>默认读取src下的hibernate.cfg.xml进行配置。</p>
+<p><code>cfg.buildSessionFactory()</code>获取session工厂，session是实体与数据库之间交互的“会话”</p>
+<p><code>sessionFactory.openSession();</code>获取新的session</p>
+<p><code>sessionFactory.getCurrentSession()</code>获取当前的session</p>
+<p><code>session.beginTransaction();</code>获取并开启事务</p>
+<p><code>transaction.commit();transaction.rollback();</code>事务的提交与回滚</p>
+<p><code>session.get();session.save();session.update();session.delete();session.saveOrUpdate();session.close();</code>实体状态的修改（并非增删改查等）</p>
+<h2 id="实体的三种状态"><a href="#实体的三种状态" class="headerlink" title="实体的三种状态"></a>实体的三种状态</h2><ul>
+<li>瞬时状态：无id，不在session一级缓存中</li>
+<li>持久化状态：有id，在session一级缓存中</li>
+<li>游离状态：有id，不在session一级缓存中</li>
+</ul>
+<p>三种状态之间的转换：</p>
+<p>get()方法获得的对象为持久化对象。</p>
+<p>save()方法将瞬时对象转换为持久化对象。</p>
+<p>update()方法将游离对象转换为持久化对象。</p>
+<p>delete()方法将持久化对象转换为瞬时对象。</p>
+<p>saveOrUpdate()方法是无脑将其他两种状态的对象转换为持久化对象。</p>
+<p>close()方法执行后，原本与session关联的持久化对象变为游离对象。</p>
+<p>持久化状态的特性：</p>
+<p>如果要使数据持久化到数据库，必须将对象转换为持久化状态。</p>
+<p>例如，我们通过get()方法获取到一个数据库中的对象，它在获取到时，肯定既包含了ID(数据库中主键非空)，也在session一级缓存中(因为是通过session.get()方法获取到的)。因此它是个持久化对象，那么当我们对对象进行任何修改后。那么它在事务提交操作后会自动持久化到数据库。</p>
+<h2 id="hibernate一级缓存测试（session缓存）"><a href="#hibernate一级缓存测试（session缓存）" class="headerlink" title="hibernate一级缓存测试（session缓存）"></a>hibernate一级缓存测试（session缓存）</h2><pre><code class="java">public class FirstCacheTest {
+    /**
+     * hibernate一级缓存测试。
+     */
+    //证明持久化对象是否就是在session缓存中的对象。
+    @Test
+    public void confirm(){
+        Session session = HibernateUtils.openSession();
+        Transaction transaction = session.beginTransaction();
+        Customer customer = new Customer();
+        customer.setCust_id(1l);//创建对象并设置ID，那么它成为游离状态
+        session.update(customer);//将其变为持久状态。
+        //如果持久状态对象就是在一级缓存中的对象，那么我们在获取id为1的数据时，它将直接从一级缓存中读取。
+        Customer customer1 = session.get(Customer.class, 1l);
+        transaction.commit();
+        //提交事务后，我们只打印出一条更新操作的sql语句。
+        //因为缓存中的数据与快照中比对不一致，会自动将缓存中的数据持久化到数据库。（由于根本没有从数据库中获取该对象，所以不会生成快照，所以缓存一定和快照不一致）
+        session.close();
+    }
+    //测试当我们获取到数据库中的某一行时（此时既有缓存又有快照），假如我们直接手动修改数据，那么重新get到的会是缓存还是新数据。
+    @Test
+    public void editDataBase(){
+        Session session = HibernateUtils.openSession();
+        Transaction transaction = session.beginTransaction();
+        Customer customer = session.get(Customer.class, 1l);
+        //此时对数据库本身进行修改
+        System.out.println(customer);
+        //此时再次获取该对象（从缓存中获取，没有获取到修改的内容）
+        Customer isNewOrCache = session.get(Customer.class, 1l);
+        System.out.println(isNewOrCache);
+        transaction.commit();
+        //由于与快照相同，不会更新到数据库中，数据库中保留新的内容。
+        session.close();
+    }
+}</code></pre>
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><h3 id="特性与指定隔离级别"><a href="#特性与指定隔离级别" class="headerlink" title="特性与指定隔离级别"></a>特性与指定隔离级别</h3><p>ACID，原子性，一致性，隔离性，持久性</p>
+<p>隔离级别：读未提交，读已提交，可重复读，串行化</p>
+<p>在数据库用一个字节代表隔离级别：0001,0010,0100,1000（即：1,2,4,8）</p>
+<p>在hibernate主配置中指定隔离级别：</p>
+<pre><code class="xml">&lt;property name=&quot;hibernate.connection.isolation&quot;&gt;4&lt;/property&gt;
+&lt;!-- 该配置指定隔离级别为可重复读 --&gt;</code></pre>
+<h3 id="使用事务"><a href="#使用事务" class="headerlink" title="使用事务"></a>使用事务</h3><p>一开始我们在使用dbutils进行事务操作时，是在工具类中创建了threadlocal对象，绑定了connection对象，因此在调用时，它会拿与当前线程绑定的对象。确保了唯一性。</p>
+<p>而hibernate也是用了此原理，但是我们只需要使用session.getCurrentSession()，即可获取与当前线程绑定session。</p>
+<p>需要<strong>注意</strong>的是：</p>
+<ol>
+<li><p>使用与当前线程绑定的session，必须在主配置中添加一项配置。</p>
+<pre><code class="xml">&lt;property name=&quot;hibernate.current_session_context_class&quot;&gt;thread&lt;/property&gt;</code></pre>
+</li>
+<li><p>使用getCurrentSession()获取到的session在事务提交后不需要手动关闭，否则会抛出异常。</p>
+</li>
+</ol>
+<h2 id="查询语句"><a href="#查询语句" class="headerlink" title="查询语句"></a>查询语句</h2><p>我们已经可以通过session的get方法，获取数据库中id为任意的对象。但是它不能涉及到批量查询与更多的条件查询。</p>
+<p>当我们要使用批量或条件查询时，hibernate为我们提供了三种方式。</p>
+<ol>
+<li><p>HQL语句（hibernate自创）（多用于多表不复杂查询），原来的sql语句一般是操作表，而HQL语句中，一切都是在操作实体类。具体相关API此处不再赘述。</p>
+</li>
+<li><p>criteria查询（hibernate自创）（多用于单表条件查询），此种方式彻底抛弃编写任何语句，一切查询方法都被封装为API。具体API不再赘述。</p>
+</li>
+<li><p>原生sql查询（多用于复杂业务查询）</p>
+</li>
+</ol>
+
+  </article>
+
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/javaweb/">javaweb</a>
+    
+    
+        <a class="nexmoefont icon-tag-fill -link" href="/tags/hibernate/" rel="tag">hibernate</a>
+    
+</div>
+
+
+  <div class="nexmoe-post-footer">
+    
+      
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>ILSH·M<br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+    
+    <section class="nexmoe-comment">
+    <!-- Unpkg -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/disqusjs@1.2.5/dist/disqusjs.min.css">
+<script src="https://cdn.jsdelivr.net/npm/disqusjs@1.2.5/dist/disqus.min.js"></script>
+<div id="disqus_thread"></div>
+<script>
+var dsqjs = new DisqusJS({
+    shortname: 'timecan',
+    siteName: 'timecan',
+    identifier: 'https://timecan.ml/2020/03/01/hibernate%E7%9A%84%E7%AE%80%E4%BB%8B/',
+    url: 'https://timecan.ml/2020/03/01/hibernate%E7%9A%84%E7%AE%80%E4%BB%8B/',
+    title: 'hibernate的简介',
+    api: 'https://disqus.skk.moe/disqus/',
+    apikey: 'rqRJGHoSXgClaNPyGIbSpdxiyhn7tqB6Lx8HGRFbVSef4NCTITa0VFUoRzEswwM2',
+    admin: 'moseay',
+    adminLabel: '吃火锅'
+});
+</script>
+</section>
+  </div>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js,gh/nexmoe/nexmoe.github.io@latest/js/app.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!--<script src="/js/app.js?v=1583131568019"></script>-->
+
+
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+
+
+ 
+<script> 
+!function(e,t,a){function n(){c(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"),o(),r()}function r(){for(var e=0;e<d.length;e++)d[e].alpha<=0?(t.body.removeChild(d[e].el),d.splice(e,1)):(d[e].y--,d[e].scale+=.004,d[e].alpha-=.013,d[e].el.style.cssText="left:"+d[e].x+"px;top:"+d[e].y+"px;opacity:"+d[e].alpha+";transform:scale("+d[e].scale+","+d[e].scale+") rotate(45deg);background:"+d[e].color+";z-index:99999");requestAnimationFrame(r)}function o(){var t="function"==typeof e.onclick&&e.onclick;e.onclick=function(e){t&&t(),i(e)}}function i(e){var a=t.createElement("div");a.className="heart",d.push({el:a,x:e.clientX-5,y:e.clientY-5,scale:1,alpha:1,color:s()}),t.body.appendChild(a)}function c(e){var a=t.createElement("style");a.type="text/css";try{a.appendChild(t.createTextNode(e))}catch(t){a.styleSheet.cssText=e}t.getElementsByTagName("head")[0].appendChild(a)}function s(){return"rgb("+~~(255*Math.random())+","+~~(255*Math.random())+","+~~(255*Math.random())+")"}var d=[];e.requestAnimationFrame=function(){return e.requestAnimationFrame||e.webkitRequestAnimationFrame||e.mozRequestAnimationFrame||e.oRequestAnimationFrame||e.msRequestAnimationFrame||function(e){setTimeout(e,1e3/60)}}(),n()}(window,document);
+</script>
+
+  
+
+
+
+
+
+</body>
+
+</html>
