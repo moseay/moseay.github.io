@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <title>BaseDao的精妙设计 - 时间胶囊</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="我与你的轻时光">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/vnd.microsoft.icon" />
+  <meta name="description" content="在之前我们就已经学了关于Servlet的抽取，记不清前面的博客是否有提到。原理就是通过建立BaseServlet，业务Servlet去继承BaseServlet，通过反射去调用业务Servlet中的方法。这种方法可以使混乱不堪的Servlet尽可能的化简，从具体功能上到业务上的转变。 而BaseDao也是一种功能抽取的东西，（hibernate中）在我们写关于增删改查的业务时，也许会遇到各种重复的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BaseDao的精妙设计">
+<meta property="og:url" content="https://timecan.ml/2020/03/17/BaseDao%E7%9A%84%E7%B2%BE%E5%A6%99%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name" content="时间胶囊">
+<meta property="og:description" content="在之前我们就已经学了关于Servlet的抽取，记不清前面的博客是否有提到。原理就是通过建立BaseServlet，业务Servlet去继承BaseServlet，通过反射去调用业务Servlet中的方法。这种方法可以使混乱不堪的Servlet尽可能的化简，从具体功能上到业务上的转变。 而BaseDao也是一种功能抽取的东西，（hibernate中）在我们写关于增删改查的业务时，也许会遇到各种重复的">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-17T05:59:16.000Z">
+<meta property="article:modified_time" content="2020-03-17T05:59:16.355Z">
+<meta property="article:author" content="ILSH·M">
+<meta property="article:tag" content="hibernate">
+<meta name="twitter:card" content="summary">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/gh/nexmoe/nexmoe.github.io@latest/css/style.css,npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css" crossorigin>
+  
+  <!--<link rel="stylesheet" href="/css/style.css?v=1584428517095">-->
+
+   
+    <style>
+      .nexmoe-avatar img:hover {
+        -webkit-transform: rotateZ(360deg);
+        -moz-transform: rotateZ(360deg);
+        transform: rotateZ(360deg);
+      }	
+    </style>
+  
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://i.loli.net/2020/01/06/kewAqLjBR21ZzTU.png)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="ILSH·M" class="mdui-btn mdui-btn-icon"><img src="https://i.loli.net/2020/02/21/wA7z8JBrlUORWQE.jpg" alt="ILSH·M"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="ILSH·M">
+            <img src="https://i.loli.net/2020/02/21/wA7z8JBrlUORWQE.jpg" alt="ILSH·M" alt="ILSH·M">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>18</div>
+        <div><span>标签</span>9</div>
+        <div><span>分类</span>3</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/PY.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">社交按钮</h3>
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://github.com/moseay" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(29, 161, 242);background-color: rgba(29, 161, 242, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a><a class="mdui-ripple" href="https://t.me/White_Two" target="_blank" mdui-tooltip="{content: 'Telegram'}" style="color: rgb(29, 161, 242);background-color: rgba(29, 161, 242, .15);">
+            <i class="nexmoefont icon-telegram"></i>
+        </a><a class="mdui-ripple" href="https://twitter.com/_mos_ae?s=09" target="_blank" mdui-tooltip="{content: 'Twitter'}" style="color: rgb(29, 161, 242);background-color: rgba(29, 161, 242, .15);">
+            <i class="nexmoefont icon-twitter"></i>
+        </a><a class="mdui-ripple" href="tencent://message/?uin=824665292&Site=&Menu=yes" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(29, 161, 242);background-color: rgba(29, 161, 242, .15);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/javaweb/">javaweb</a>
+          <span class="category-list-count">8</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/心事/">心事</a>
+          <span class="category-list-count">6</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/随笔/">随笔</a>
+          <span class="category-list-count">3</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">标签云</h3>
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/filter/" style="font-size: 10px;">filter</a> <a href="/tags/hibernate/" style="font-size: 15px;">hibernate</a> <a href="/tags/listener/" style="font-size: 10px;">listener</a> <a href="/tags/%E5%88%86%E9%A1%B5/" style="font-size: 10px;">分页</a> <a href="/tags/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" style="font-size: 10px;">动态代理</a> <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%97%A5%E6%9D%82/" style="font-size: 10px;">博客日杂</a> <a href="/tags/%E5%B0%8F%E6%96%87%E7%AB%A0/" style="font-size: 10px;">小文章</a> <a href="/tags/%E6%A2%A6%E5%A2%83/" style="font-size: 10px;">梦境</a> <a href="/tags/%E8%87%AA%E6%88%91/" style="font-size: 20px;">自我</a>
+    </div>
+    
+  </div>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2020 ILSH·M
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
+    </div>
+</div><!-- .nexmoe-drawer -->
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: 66.25%;"> 
+          <img data-src="https://cdn.pixabay.com/photo/2020/03/07/11/54/the-fog-4909513_960_720.jpg" data-sizes="auto" alt="BaseDao的精妙设计" class="lazyload">
+          <h1>BaseDao的精妙设计</h1>
+      </div>
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2020年03月17日</a>
+    <a><i class="nexmoefont icon-areachart"></i>1.7k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 7 分钟</a>
+</div>
+
+
+  <div class="nexmoe-post-right">
+    
+      <div class="nexmoe-fixed">
+        <div class="nexmoe-valign">
+            <div class="nexmoe-toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#大致思路"><span class="toc-number">1.</span> <span class="toc-text">大致思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#具体实现"><span class="toc-number">2.</span> <span class="toc-text">具体实现</span></a></li></ol>
+            </div>
+        </div>
+      </div>
+    
+  </div>
+
+  <article>
+    <p>在之前我们就已经学了关于Servlet的抽取，记不清前面的博客是否有提到。原理就是通过建立BaseServlet，业务Servlet去继承BaseServlet，通过反射去调用业务Servlet中的方法。这种方法可以使混乱不堪的Servlet尽可能的化简，从具体功能上到业务上的转变。</p>
+<p>而BaseDao也是一种功能抽取的东西，（hibernate中）在我们写关于增删改查的业务时，也许会遇到各种重复的代码，例如保存一个“用户”，与保存一个任意对象到数据库都是调用save()方法，将其转换为持久化对象而已。如果保存不同的对象都要重新写一套方法，无疑是增加了功能的重复性。</p>
+<a id="more"></a>
+
+<h2 id="大致思路"><a href="#大致思路" class="headerlink" title="大致思路"></a>大致思路</h2><ul>
+<li>我们需要创建一个BaseDao接口，将常用的“增删改查”的方法声明写入。</li>
+<li>接着再写一个BaseDao的实现类BaseDaoImpl，在实现类中将增删改查功能实现。</li>
+<li>接着我们在写Dao层时，例如UserDao，那么我们首先使UserDao继承BaseDao，</li>
+<li>再创建UserDao的实现类UserDaoImpl去继承BaseDaoImpl。</li>
+</ul>
+<p>通过这一番操作，由于常用的增删改查方法都在BaseDaoImpl中实现了，所以我们在写例如“保存用户”、“删除用户”等方法时，一行代码都不需要写，就可以完成业务。</p>
+<p>最重要的是，即使我们是保存“订单”，由于hibernate的特性，我们也可以把订单对象直接传入，BaseDaoImpl依旧可以完成保存等操作。</p>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><p>BaseDao设计：</p>
+<pre><code class="java">package com.xxx.dao;
+
+import java.io.Serializable;
+import java.util.List;
+
+import org.hibernate.criterion.DetachedCriteria;
+//通过泛型，可以做到传入任意对象，都能解析的作用
+public interface BaseDao&lt;T&gt; {
+    //增
+    void save(T t);
+    //删，传入对象删除
+    void delete(T t);
+    //删，通过id删除，所有可作为id的对象都实现了Serializable
+    void delete(Serializable id);
+    //改
+    void update(T t);
+    //查 根据id查询
+    T getById(Serializable id);
+    //分页查询
+    //查寻符合条件的总记录数
+    Integer    getTotalCount(DetachedCriteria dc);
+    //查 查询分页列表数据
+    List&lt;T&gt; getPageList(DetachedCriteria dc,Integer start,Integer pageSize);
+}</code></pre>
+<p>BaseDaoImpl设计：</p>
+<pre><code class="java">package com.xxx.dao.impl;
+
+import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.List;
+
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+
+import cn.xxx.dao.BaseDao;
+
+//由于在此，依旧没有确定泛型类型，因此实现类也使用泛型。
+//由于是Spring项目，所以继承hibernate模板。
+public class BaseDaoImpl&lt;T&gt; extends HibernateDaoSupport implements BaseDao&lt;T&gt; {
+    //由于我们在只有在运行时，它BaseDaoImpl才能知道具体的泛型类型，但是在实现方法时我们就要用到。所以我们需要设置在运行时期接受类型的代码。
+    private Class clazz;//用于接收运行期泛型类型
+
+
+    public BaseDaoImpl() {
+        //在程序运行时期，例如UserDaoImpl执行，那么它继承了BaseDaoImpl。我们会在泛型中填入User。执行时是UserDaoImpl，那么获取到的父类就是BaseDaoImpl。
+        //获得当前类型的带有泛型类型的父类
+        ParameterizedType ptClass = (ParameterizedType) this.getClass().getGenericSuperclass();
+        //ParameterizedType可获取泛型类型，原返回值是Type顶级接口。
+        //获得运行期的泛型类型
+        //泛型可能有多个，由于BaseDaoImpl只有一个泛型，所以我们只需要接收第一个泛型。
+        clazz = (Class) ptClass.getActualTypeArguments()[0];
+    }
+
+    @Override
+    public void save(T t) {
+        getHibernateTemplate().save(t);
+    }
+
+    @Override
+    public void delete(T t) {
+
+        getHibernateTemplate().delete(t);
+
+    }
+
+    @Override
+    public void delete(Serializable id) {
+        T t = this.getById(id);//先取出对象,再执行删除
+        getHibernateTemplate().delete(t);
+    }
+
+    @Override
+    public void update(T t) {
+        getHibernateTemplate().update(t);
+    }
+
+    @Override
+    public T getById(Serializable id) {
+        return (T) getHibernateTemplate().get(clazz, id);
+    }
+
+    @Override
+    public Integer getTotalCount(DetachedCriteria dc) {
+        //根据业务来讲，我们会在前台收到查询条件，然后我们将其封装为离线查询对象。在此进行获取其总数据量，那么我们就需要再次设置聚合函数。
+
+        //设置查询的聚合函数,总记录数
+        dc.setProjection(Projections.rowCount());
+        List&lt;Long&gt; list = (List&lt;Long&gt;) getHibernateTemplate().findByCriteria(dc);
+        //但是要注意的是，我们在查询后必须清空聚合函数，因为离线查询对象主要还是作为离线查询使用，主要获取的还是数据集合，如果我们不清空聚合函数，那么在后续查询list集合时，最终会返回“数据总条数”。
+        //清空之前设置的聚合函数
+        dc.setProjection(null);
+        if(list!=null &amp;&amp; list.size()&gt;0){
+            Long count = list.get(0);
+            return count.intValue();
+        }else{
+            return null;
+        }
+    }
+
+    @Override
+    public List&lt;T&gt; getPageList(DetachedCriteria dc, Integer start, Integer pageSize) {
+        //后续...如果前面方法不清空聚合函数，此处返回的list将仅仅是一个集合，其中只有一个数字而已。
+        List&lt;T&gt; list = (List&lt;T&gt;) getHibernateTemplate().findByCriteria(dc, start, pageSize);
+        return list;
+    }
+
+}</code></pre>
+<p>关于分页的一些解释：</p>
+<p>在上述方法中，我们特意设置了分页查询的相关方法。那么究竟分页功能是如何使用这些方法的呢？</p>
+<p>PageBean设计：</p>
+<pre><code class="java">package com.xxx.domain;
+
+import java.util.List;
+
+public class PageBean {
+    //当前页数,用于计算索引
+    private Integer currentPage;
+    //总记录数,前端显示，计算总页数
+    private Integer totalCount;
+    //每页显示条数，用于计算索引
+    private Integer pageSize;
+    //总页数，前端使用
+    private Integer totalPage;
+    //分页列表数据
+    private List list;
+    //设置构造方法，计算总页数以及错误数据修正。
+    public PageBean(Integer currentPage, Integer totalCount, Integer pageSize) {
+        this.totalCount = totalCount;
+
+        this.pageSize =  pageSize;
+
+        this.currentPage = currentPage;
+
+        if(this.currentPage == null){
+            //如页面没有指定显示那一页.显示第一页.
+            this.currentPage = 1;
+        }
+
+        if(this.pageSize == null){
+            //如果每页显示条数没有指定,默认每页显示3条
+            this.pageSize = 3;
+        }
+
+        //计算总页数
+        this.totalPage = (this.totalCount+this.pageSize-1)/this.pageSize;
+
+        //判断当前页数是否超出范围
+        //不能小于1
+        if(this.currentPage &lt; 1){
+            this.currentPage = 1;
+        }
+        //不能大于总页数
+        if(this.currentPage &gt; this.totalPage){
+            this.currentPage = this.totalPage;
+        }
+
+    }
+    //计算起始索引
+    public int getStart(){
+        return (this.currentPage-1)*this.pageSize;
+    }
+
+    public Integer getCurrentPage() {
+        return currentPage;
+    }
+    public void setCurrentPage(Integer currentPage) {
+        this.currentPage = currentPage;
+    }
+    public Integer getTotalCount() {
+        return totalCount;
+    }
+    public void setTotalCount(Integer totalCount) {
+        this.totalCount = totalCount;
+    }
+    public Integer getPageSize() {
+        return pageSize;
+    }
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+    public Integer getTotalPage() {
+        return totalPage;
+    }
+    public void setTotalPage(Integer totalPage) {
+        this.totalPage = totalPage;
+    }
+    public List getList() {
+        return list;
+    }
+    public void setList(List list) {
+        this.list = list;
+    }
+}</code></pre>
+<p>其中，“当前页数”和“当前页显示多少条数”由前端传入。总页数由构造方法通过“总数据量”与“当前页显示多少条”计算得出。</p>
+<p>剩下的“总数据量“和”数据集合“则是BaseDaoImpl的最后两个方法得出。</p>
+<p>此时我们将PageBean完全封装。</p>
+<hr>
+<p>此后，我们无论使用任意对象的分页，或是任意对象的增删改查，都完全可以不写任何代码去实现。</p>
+<p>而如果在业务上需要其他的查询，我们也可以（比如UserDao），在UserDao中进行声明，在UserDaoImpl中进行实现。</p>
+
+  </article>
+
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/javaweb/">javaweb</a>
+    
+    
+        <a class="nexmoefont icon-tag-fill -link" href="/tags/hibernate/" rel="tag">hibernate</a>
+    
+</div>
+
+
+  <div class="nexmoe-post-footer">
+    
+      
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>ILSH·M<br>
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+    
+    <section class="nexmoe-comment">
+    <!-- Unpkg -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/disqusjs@1.2.5/dist/disqusjs.min.css">
+<script src="https://cdn.jsdelivr.net/npm/disqusjs@1.2.5/dist/disqus.min.js"></script>
+<div id="disqus_thread"></div>
+<script>
+var dsqjs = new DisqusJS({
+    shortname: 'timecan',
+    siteName: 'timecan',
+    identifier: 'https://timecan.ml/2020/03/17/BaseDao%E7%9A%84%E7%B2%BE%E5%A6%99%E8%AE%BE%E8%AE%A1/',
+    url: 'https://timecan.ml/2020/03/17/BaseDao%E7%9A%84%E7%B2%BE%E5%A6%99%E8%AE%BE%E8%AE%A1/',
+    title: 'BaseDao的精妙设计',
+    api: 'https://disqus.skk.moe/disqus/',
+    apikey: 'rqRJGHoSXgClaNPyGIbSpdxiyhn7tqB6Lx8HGRFbVSef4NCTITa0VFUoRzEswwM2',
+    admin: 'moseay',
+    adminLabel: '吃火锅'
+});
+</script>
+</section>
+  </div>
+</div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js,gh/nexmoe/nexmoe.github.io@latest/js/app.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!--<script src="/js/app.js?v=1584428517098"></script>-->
+
+
+    <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+
+
+ 
+<script> 
+!function(e,t,a){function n(){c(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"),o(),r()}function r(){for(var e=0;e<d.length;e++)d[e].alpha<=0?(t.body.removeChild(d[e].el),d.splice(e,1)):(d[e].y--,d[e].scale+=.004,d[e].alpha-=.013,d[e].el.style.cssText="left:"+d[e].x+"px;top:"+d[e].y+"px;opacity:"+d[e].alpha+";transform:scale("+d[e].scale+","+d[e].scale+") rotate(45deg);background:"+d[e].color+";z-index:99999");requestAnimationFrame(r)}function o(){var t="function"==typeof e.onclick&&e.onclick;e.onclick=function(e){t&&t(),i(e)}}function i(e){var a=t.createElement("div");a.className="heart",d.push({el:a,x:e.clientX-5,y:e.clientY-5,scale:1,alpha:1,color:s()}),t.body.appendChild(a)}function c(e){var a=t.createElement("style");a.type="text/css";try{a.appendChild(t.createTextNode(e))}catch(t){a.styleSheet.cssText=e}t.getElementsByTagName("head")[0].appendChild(a)}function s(){return"rgb("+~~(255*Math.random())+","+~~(255*Math.random())+","+~~(255*Math.random())+")"}var d=[];e.requestAnimationFrame=function(){return e.requestAnimationFrame||e.webkitRequestAnimationFrame||e.mozRequestAnimationFrame||e.oRequestAnimationFrame||e.msRequestAnimationFrame||function(e){setTimeout(e,1e3/60)}}(),n()}(window,document);
+</script>
+
+  
+
+
+
+
+
+</body>
+
+</html>
